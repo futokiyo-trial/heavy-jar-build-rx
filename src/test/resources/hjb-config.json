@@ -1,0 +1,30 @@
+{
+	"logDirectory": "C:/tmp/test/tst",
+	"parallelSize": 4,
+	"scripts": [
+		{
+			"scriptLabel": "lionchild",
+			"runtimeType": "ps1",
+			"maxHeapSize": "2765m",
+			"scriptPath": "C:/gitwork/kabuki-scripts/lionchild.ps1"
+		},
+		{
+			"scriptLabel": "shidoh",
+			"runtimeType": "ps1",
+			"maxHeapSize": "2765m",
+			"scriptPath": "C:/gitwork/kabuki-scripts/shidoh.ps1"
+		},
+		{
+			"scriptLabel": "gold",
+			"runtimeType": "ps1",
+			"maxHeapSize": "2765m",
+			"scriptPath": "C:/gitwork/kabuki-scripts/gold.ps1"
+		},
+		{
+			"scriptLabel": "midvillage",
+			"runtimeType": "ps1",
+			"maxHeapSize": "2765m",
+			"scriptPath": "C:/gitwork/kabuki-scripts/midvillage.ps1"
+		}
+	]
+}
