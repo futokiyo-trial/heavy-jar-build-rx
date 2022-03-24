@@ -40,12 +40,13 @@ public class BuildInvokerService {
         this.outputPath = outputPath;
     }
 
-    public void invokeScript(CountDownLatch countDownLatch){
+    public void invokeScript(CountDownLatch countDownLatch, Map<String, Integer> exitValueMap){
 
         ProcessBuilder pb = scriptProcBuilderMap.get(scriptDef.getRuntimeType())
                 .apply(scriptDef);
         pb.redirectErrorStream(true);// 標準エラーを標準出力にマージする
         Process pr ;
+        Integer exitValue = null;
         try{
             long startTime = System.currentTimeMillis();
             pr =pb.start();
@@ -53,7 +54,7 @@ public class BuildInvokerService {
             + " [maxHeapSize:" + scriptDef.getMaxHeapSize()
             + " scriptPath:" + scriptDef.getScriptPath() + "]");
             printSystemOutToFile(scriptDef, outputPath, pr);
-            int exitValue = pr.waitFor();
+            exitValue = pr.waitFor();
             long elapsedTime = System.currentTimeMillis() - startTime;
             System.out.println(scriptDef.getScriptLabel()
                     + " has ended. exit[" + exitValue
@@ -61,6 +62,7 @@ public class BuildInvokerService {
         } catch(IOException | InterruptedException e){
             e.printStackTrace();
         } finally{
+            exitValueMap.put(scriptDef.getScriptLabel(), exitValue);
             if(countDownLatch!=null){
                 countDownLatch.countDown();
                 System.out.println("ScriptLabel: " + this.scriptDef.getScriptLabel() +
